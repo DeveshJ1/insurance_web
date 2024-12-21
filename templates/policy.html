@@ -29,6 +29,13 @@
                 <td>{{ policy[4] }}</td>
                 <td>{{ policy[5] }}</td>
                 <td>{{ policy[6] }}</td>
+                <td>
+                    <form action="/generate_quote" method="POST">
+                        <input type="hidden" name="policy_type" value="{{ policy[0] }}">
+                        <input type="hidden" name="policy_num" value="{{ policy[6] }}">
+                        <button type="submit">Generate Quote</button>
+                    </form>
+                </td>
             </tr>
             {% endfor %}
         </tbody>

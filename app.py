@@ -110,5 +110,53 @@ def policies():
     policies = cursor.fetchall()
     # Pass the policies to the template
     return render_template('policy.html', policies=policies)
+
+@app.route('/generate_quote', methods=['POST'])
+def generate_quote():
+    """Render a form based on the policy type for quote generation."""
+    policy_type = request.form['policy_type']
+    policy_num = request.form['policy_num']
+
+    if policy_type.lower() == 'health':
+        fields = ['Height_Inches', 'Weight_Pounds', 'BMI', 'NumChildren', 'Smoker']
+    elif policy_type.lower() == 'vehicle':
+        fields = [
+            'VehicleCompany', 'VehiclePrice', 'VehicleCategory', 'PastNumClaims',
+            'VehicleModel', 'YearsExperience', 'NumTickets', 'NumPastAccidents',
+            'VehicleDamageRating', 'VehicleID'
+        ]
+    else:
+        return "Unsupported Policy Type", 400
+
+    return render_template('quote_form.html', fields=fields, policy_type=policy_type, policy_num=policy_num)
+
+@app.route('/submit_quote', methods=['POST'])
+def submit_quote():
+    """Process the submitted quote data."""
+    policy_type = request.form['policy_type']
+    policy_num = request.form['policy_num']
+    db = get_db()
+    cursor = db.cursor()
+    cursor.execute(
+        "SELECT Premium, Deductible FROM ComapnyPolicies WHERE PolicyNum = ?",
+        (policy_num,)
+    )
+    policy_data = cursor.fetchone()
+    if policy_data:
+        premium, deductible = policy_data
+        return render_template(
+            'quote_results.html',
+            policy_num=policy_num,
+            policy_type=policy_type,
+            premium=premium,
+            deductible=deductible
+        )
+    else:
+        return f"Policy with Policy Number {policy_num} not found.", 404
+    #data = {key: value for key, value in request.form.items() if key not in ['policy_type', 'policy_num']}
+
+    # For now, just return the data as a confirmation
+    # You can add quote calculations or database saving here
+   # return f"Quote data for Policy #{policy_num} ({policy_type}): {data}"
 if __name__ == '__main__':
     app.run(debug=True)

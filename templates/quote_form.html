@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Generate Quote</title>
+</head>
+<body>
+    <h1>Generate Quote for {{ policy_type }} Policy</h1>
+    <form action="/submit_quote" method="POST">
+        <input type="hidden" name="policy_type" value="{{ policy_type }}">
+        <input type="hidden" name="policy_num" value="{{ policy_num }}">
+        
+        {% for field in fields %}
+        <label for="{{ field }}">{{ field.replace('_', ' ') }}:</label><br>
+        <input type="text" id="{{ field }}" name="{{ field }}" required><br><br>
+        {% endfor %}
+        
+        <button type="submit">Submit</button>
+    </form>
+</body>
+</html>
