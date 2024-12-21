@@ -70,7 +70,7 @@ def register():
                           VALUES (?, ?, ?, ?, ?, ?, ?,?)''',
                            (ssn,username,today,0,0,0,0,password))
             db.commit()
-            return redirect(url_for('register'))  # Redirect after successful registration
+            return redirect(url_for('login'))  # Redirect after successful registration
         except sqlite3.IntegrityError as e:
             return f"Error: {e}", 400
 
