@@ -1,0 +1,577 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<project name="Insurance_Company" database="Sqlite" id="Sqlite-1a77" >
+	<schema name="insurance_company" >
+		<comment_tag name="PhysicalName" value="insurance_company" />
+		<table name="Agent" prior="Entity" >
+			<column name="CompanyCode" type="INT" jt="4" mandatory="y" />
+			<column name="AgentFirstName" type="TEXT" jt="-1" />
+			<column name="AgentLastName" type="TEXT" jt="-1" />
+			<column name="AgentID" type="INT" jt="4" mandatory="y" />
+			<column name="AgentMiddleInitial" type="TEXT" jt="-1" />
+			<column name="AgentPhoneNumber" type="INT" jt="4" />
+			<column name="AgentEmailAddress" type="TEXT" jt="-1" />
+			<index name="pk_Agent" unique="PRIMARY_KEY" >
+				<column name="AgentID" />
+				<column name="CompanyCode" />
+			</index>
+			<index name="unq_AgentID" unique="UNIQUE_INDEX" >
+				<column name="AgentID" />
+			</index>
+			<fk name="BelongsTo" to_schema="insurance_company" to_table="Company" >
+				<fk_column name="CompanyCode" pk="CompanyCode" />
+			</fk>
+		</table>
+		<table name="Claims" prior="Entity" >
+			<column name="PolicyNum" type="INT" jt="4" />
+			<column name="ClaimDate" type="NUMERIC" jt="2" />
+			<column name="ClaimAmt" type="INT" jt="4" />
+			<column name="ClaimState" type="TEXT" jt="-1" />
+			<column name="ClaimCity" type="TEXT" jt="-1" />
+			<column name="ClaimZip" type="TEXT" jt="-1" />
+			<column name="ClaimAddress1" type="TEXT" jt="-1" />
+			<column name="ClaimAddress2" type="TEXT" jt="-1" />
+			<column name="ClaimStatus" type="TEXT" jt="-1" />
+			<column name="ClaimSeverity" type="TEXT" jt="-1" />
+			<column name="Witness" type="NUMERIC" jt="2" />
+			<column name="Fault" type="TEXT" jt="-1" />
+			<column name="Description" type="TEXT" jt="-1" />
+			<column name="Fraud" type="NUMERIC" jt="2" />
+			<column name="AuthoritiesContacted" type="NUMERIC" jt="2" />
+			<column name="PoliceReport" type="NUMERIC" jt="2" />
+			<column name="CustSSN" type="TEXT" jt="-1" />
+			<index name="pk_PolicyNum" unique="UNIQUE_KEY" >
+				<column name="CustSSN" />
+				<column name="PolicyNum" />
+			</index>
+			<index name="pk_PolicyNum_001" unique="UNIQUE_KEY" >
+				<column name="CustSSN" />
+				<column name="PolicyNum" />
+			</index>
+			<index name="pk_PolicyNum_002" unique="UNIQUE_KEY" >
+				<column name="CustSSN" />
+				<column name="PolicyNum" />
+			</index>
+		</table>
+		<table name="Company" prior="Entity" >
+			<column name="CompanyCode" type="INT" jt="4" mandatory="y" />
+			<column name="CompanyName" type="TEXT" jt="-1" />
+			<column name="CompanyRegion" type="TEXT" jt="-1" />
+			<column name="CompanyState" type="TEXT" jt="-1" />
+			<column name="CompanyCity" type="TEXT" jt="-1" />
+			<column name="CompanyZip" type="INT" jt="4" />
+			<column name="Phone_Number" type="INT" jt="4" />
+			<column name="EmailAddress" type="TEXT" jt="-1" />
+			<index name="pk_Company" unique="PRIMARY_KEY" >
+				<column name="CompanyCode" />
+			</index>
+		</table>
+		<table name="CompanyMarketingTelevision" prior="MarketingTelevision" >
+			<column name="CompnayCode" type="INT" jt="4" mandatory="y" />
+			<column name="budget" type="INT" jt="4" />
+			<column name="campaign_ID" type="INT" jt="4" mandatory="y" />
+			<index name="pk_MarketingTelevision" unique="PRIMARY_KEY" >
+				<column name="campaign_ID" />
+				<column name="CompnayCode" />
+			</index>
+			<index name="unq_campaign_ID" unique="UNIQUE_INDEX" >
+				<column name="campaign_ID" />
+			</index>
+			<fk name="hasTvMarketing" to_schema="insurance_company" to_table="Company" >
+				<fk_column name="CompnayCode" pk="CompanyCode" />
+			</fk>
+			<fk name="isCampaign" to_schema="insurance_company" to_table="Marketing" >
+				<fk_column name="campaign_ID" pk="CampaignId" />
+			</fk>
+		</table>
+		<table name="Customer" prior="Entity" >
+			<column name="CustLastName" type="TEXT" jt="-1" />
+			<column name="CustFirstName" type="TEXT" jt="-1" />
+			<column name="CustMiddleInitial" type="INT" jt="4" />
+			<column name="CustDOB" type="NUMERIC" jt="2" />
+			<column name="MartialStatus" prior="martialStatus" type="TEXT" jt="-1" />
+			<column name="Age" type="INT" jt="4" />
+			<column name="Gender" type="INT" jt="4" />
+			<column name="EducationLvl" type="TEXT" jt="-1" />
+			<column name="Occupation" type="TEXT" jt="-1" />
+			<column name="SSN" type="TEXT" jt="-1" mandatory="y" />
+			<column name="CreditScore" type="INT" jt="4" />
+			<column name="Income" type="INT" jt="4" />
+			<column name="Phone_Number" type="TEXT" jt="-1" />
+			<column name="EmailAddress" type="TEXT" jt="-1" />
+			<index name="pk_Customer" unique="PRIMARY_KEY" >
+				<column name="SSN" />
+			</index>
+		</table>
+		<table name="CustomerAcct" prior="Entity" >
+			<column name="CustSSN" type="TEXT" jt="-1" mandatory="y" />
+			<column name="AcctName" type="TEXT" jt="-1" />
+			<column name="StartDate" type="NUMERIC" jt="2" />
+			<column name="CompanyCode" type="INT" jt="4" mandatory="y" />
+			<column name="numPolicies" type="INT" jt="4" />
+			<column name="numClaims" type="INT" jt="4" />
+			<column name="OutstandingDeductibleAmount" type="INT" jt="4" />
+			<index name="pk" unique="PRIMARY_KEY" >
+				<column name="CustSSN" />
+				<column name="CompanyCode" />
+			</index>
+			<index name="unq_CustomerAcct" unique="UNIQUE_KEY" >
+				<column name="AcctName" />
+			</index>
+			<index name="unq_CustSSN" unique="UNIQUE_INDEX" >
+				<column name="CustSSN" />
+			</index>
+			<fk name="hasAccount" to_schema="insurance_company" to_table="Customer" >
+				<fk_column name="CustSSN" pk="SSN" />
+			</fk>
+			<fk name="belongsTO" to_schema="insurance_company" to_table="Company" >
+				<fk_column name="CompanyCode" pk="CompanyCode" />
+			</fk>
+		</table>
+		<table name="CustomerAddress" prior="Entity" >
+			<column name="State" type="TEXT" jt="-1" />
+			<column name="City" type="TEXT" jt="-1" />
+			<column name="Region" type="TEXT" jt="-1" />
+			<column name="ZipCode" prior="Zip" type="INT" jt="4" />
+			<column name="Address1" type="TEXT" jt="-1" />
+			<column name="Address2" type="TEXT" jt="-1" />
+			<column name="CustSSN" type="TEXT" jt="-1" mandatory="y" />
+			<index name="pk" unique="PRIMARY_KEY" >
+				<column name="CustSSN" />
+			</index>
+			<fk name="hasAddress" to_schema="insurance_company" to_table="Customer" >
+				<fk_column name="CustSSN" pk="SSN" />
+			</fk>
+		</table>
+		<table name="CustomerBilling" prior="Entity" >
+			<column name="Cust_SSN" type="TEXT" jt="-1" mandatory="y" />
+			<column name="BillingAddr1" type="TEXT" jt="-1" />
+			<column name="BillingAddr2" type="TEXT" jt="-1" />
+			<column name="BillingCity" type="TEXT" jt="-1" />
+			<column name="BillingState" type="TEXT" jt="-1" />
+			<column name="BillingZip" type="TEXT" jt="-1" />
+			<column name="Outstanding_Flag" type="NUMERIC" jt="2" />
+			<column name="PaymentMethod" type="TEXT" jt="-1" />
+			<index name="pk" unique="PRIMARY_KEY" >
+				<column name="Cust_SSN" />
+			</index>
+			<fk name="fk_customerbilling" to_schema="insurance_company" to_table="CustomerAcct" >
+				<fk_column name="Cust_SSN" pk="CustSSN" />
+			</fk>
+		</table>
+		<table name="CustomerRelation" prior="Entity" >
+			<column name="RelatedSSN" type="TEXT" jt="-1" mandatory="y" />
+			<column name="DepndentSSN" type="TEXT" jt="-1" mandatory="y" />
+			<column name="RelationtoCust" type="TEXT" jt="-1" />
+			<index name="pk" unique="PRIMARY_KEY" >
+				<column name="RelatedSSN" />
+				<column name="DepndentSSN" />
+			</index>
+			<fk name="hasDependent" to_schema="insurance_company" to_table="Customer" >
+				<fk_column name="RelatedSSN" pk="SSN" />
+			</fk>
+			<fk name="isDependent" to_schema="insurance_company" to_table="Customer" >
+				<fk_column name="DepndentSSN" pk="SSN" />
+			</fk>
+		</table>
+		<table name="DepndentAcct" prior="RelatedAcct" >
+			<column name="Dependent_SSN" type="TEXT" jt="-1" mandatory="y" />
+			<column name="Related_SSN" type="TEXT" jt="-1" mandatory="y" />
+			<index name="pk" unique="PRIMARY_KEY" >
+				<column name="Dependent_SSN" />
+				<column name="Related_SSN" />
+			</index>
+			<fk name="RelatedAccount" to_schema="insurance_company" to_table="CustomerAcct" >
+				<fk_column name="Dependent_SSN" pk="CustSSN" />
+			</fk>
+		</table>
+		<table name="FeedBack" prior="Entity" >
+			<column name="Ticket_ID" type="INT" jt="4" mandatory="y" />
+			<column name="CustSSN" type="TEXT" jt="-1" mandatory="y" />
+			<column name="IssueDate" prior="issueDate" type="NUMERIC" jt="2" />
+			<column name="IssueType" prior="issue_type" type="TEXT" jt="-1" />
+			<column name="Description" prior="description" type="TEXT" jt="-1" />
+			<column name="ResolutionStatus" type="TEXT" length="1" jt="-1" />
+			<column name="Agent_ID" type="INT" jt="4" mandatory="y" />
+			<index name="pk_FeedBack" unique="PRIMARY_KEY" >
+				<column name="Ticket_ID" />
+				<column name="CustSSN" />
+				<column name="Agent_ID" />
+			</index>
+			<fk name="hasTicket" to_schema="insurance_company" to_table="Customer" >
+				<fk_column name="CustSSN" pk="SSN" />
+			</fk>
+			<fk name="Involved_in_Ticket" to_schema="insurance_company" to_table="Agent" >
+				<fk_column name="Agent_ID" pk="AgentID" />
+			</fk>
+		</table>
+		<table name="HealthClaim" prior="Entity" >
+			<column name="CustSSN" type="TEXT" jt="-1" mandatory="y" />
+			<column name="PolicyNumClaimed" type="INT" jt="4" mandatory="y" />
+			<column name="Injury" type="NUMERIC" jt="2" />
+			<index name="pk" unique="PRIMARY_KEY" >
+				<column name="CustSSN" />
+				<column name="PolicyNumClaimed" />
+			</index>
+			<fk name="beingClaimed" to_schema="insurance_company" to_table="HealthPolicy" >
+				<fk_column name="CustSSN" pk="CustSSN" />
+				<fk_column name="PolicyNumClaimed" pk="PolicyNumber" />
+			</fk>
+			<fk name="madeClaim" to_schema="insurance_company" to_table="Claims" >
+				<fk_column name="CustSSN" pk="CustSSN" />
+				<fk_column name="PolicyNumClaimed" pk="PolicyNum" />
+			</fk>
+		</table>
+		<table name="HealthInfo" prior="Entity" >
+			<column name="Height_Inches" type="INT" jt="4" />
+			<column name="Weight_Pounds" type="INT" jt="4" />
+			<column name="BMI" type="NUMERIC" jt="2" />
+			<column name="NumChildren" type="INT" jt="4" />
+			<column name="Smoker" type="TEXT" jt="-1" />
+			<column name="CustSSN" type="TEXT" jt="-1" mandatory="y" />
+			<index name="pk" unique="PRIMARY_KEY" >
+				<column name="CustSSN" />
+			</index>
+			<fk name="hasHealth" to_schema="insurance_company" to_table="Customer" >
+				<fk_column name="CustSSN" pk="SSN" />
+			</fk>
+		</table>
+		<table name="HealthPolicy" prior="Entity" >
+			<column name="CustSSN" type="TEXT" jt="-1" mandatory="y" />
+			<column name="PolicyNumber" type="INT" jt="4" mandatory="y" />
+			<column name="Agent_Sold" type="INT" jt="4" mandatory="y" />
+			<index name="pk_HealthPolicy" unique="PRIMARY_KEY" >
+				<column name="CustSSN" />
+				<column name="PolicyNumber" />
+				<column name="Agent_Sold" />
+			</index>
+			<index name="unq_PolicyNumber" unique="UNIQUE_INDEX" >
+				<column name="CustSSN" />
+				<column name="PolicyNumber" />
+			</index>
+			<fk name="hasHealthPolicy" to_schema="insurance_company" to_table="Customer" >
+				<fk_column name="CustSSN" pk="SSN" />
+			</fk>
+			<fk name="SoldPolicy" to_schema="insurance_company" to_table="Agent" >
+				<fk_column name="Agent_Sold" pk="AgentID" />
+			</fk>
+			<fk name="isPolicy" to_schema="insurance_company" to_table="Policy" >
+				<fk_column name="PolicyNumber" pk="PolicyNum" />
+			</fk>
+		</table>
+		<table name="HealthTrends" prior="Entity" >
+			<column name="Increase_Hospitalizations" type="NUMERIC" jt="2" />
+			<column name="Decreased_Hospitalizations" type="NUMERIC" jt="2" />
+			<column name="State" prior="Region" type="TEXT" jt="-1" />
+			<column name="LifeExpectancy" type="INT" jt="4" />
+			<column name="IncreasedHealthCareCost" type="NUMERIC" jt="2" />
+			<column name="DecreasedHealthcareCost" type="NUMERIC" jt="2" />
+			<column name="PoorEconomicConditions" type="NUMERIC" jt="2" />
+			<column name="GoodEconomicConditions" type="NUMERIC" jt="2" />
+			<column name="IncreasedReportedSickeness" type="NUMERIC" jt="2" />
+			<column name="DecreasedReportedSickness" type="NUMERIC" jt="2" />
+		</table>
+		<table name="Invoice" prior="Entity" >
+			<column name="InvoiceNumber" type="INT" jt="4" mandatory="y" />
+			<column name="Cust_SSN" type="TEXT" jt="-1" mandatory="y" />
+			<column name="Status" type="TEXT" jt="-1" />
+			<column name="CompanyCode" type="INT" jt="4" mandatory="y" />
+			<index name="pk_Invoice" unique="PRIMARY_KEY" >
+				<column name="InvoiceNumber" />
+				<column name="Cust_SSN" />
+				<column name="CompanyCode" />
+			</index>
+			<index name="unq_InvoiceNumber" unique="UNIQUE_INDEX" >
+				<column name="InvoiceNumber" />
+			</index>
+			<fk name="fk_invoice_customerbilling" to_schema="insurance_company" to_table="CustomerBilling" >
+				<fk_column name="Cust_SSN" pk="Cust_SSN" />
+			</fk>
+			<fk name="sentInvoice" to_schema="insurance_company" to_table="Company" >
+				<fk_column name="CompanyCode" pk="CompanyCode" />
+			</fk>
+		</table>
+		<table name="InvoiceDetail" prior="Entity" >
+			<column name="Invoice_ID" type="INT" jt="4" mandatory="y" />
+			<column name="Policy_Payment" prior="PolicyNum" type="NUMERIC" jt="2" />
+			<column name="Claim_Payment" prior="ClaimNum" type="NUMERIC" jt="2" />
+			<column name="PaidDate" type="NUMERIC" jt="2" />
+			<column name="DueDate" type="NUMERIC" jt="2" />
+			<column name="GivenDate" type="NUMERIC" jt="2" />
+			<column name="Amount" type="INT" jt="4" />
+			<index name="pk" unique="PRIMARY_KEY" >
+				<column name="Invoice_ID" />
+			</index>
+			<fk name="hasDetail" to_schema="insurance_company" to_table="Invoice" >
+				<fk_column name="Invoice_ID" pk="InvoiceNumber" />
+			</fk>
+		</table>
+		<table name="Marketing" prior="Entity" >
+			<column name="StartDate" type="NUMERIC" jt="2" />
+			<column name="EndDate" type="NUMERIC" jt="2" />
+			<column name="TargetAudience" type="TEXT" jt="-1" />
+			<column name="CampaignId" type="INT" jt="4" />
+			<column name="EngagementRate" type="INT" jt="4" />
+			<index name="pk_CampaignId" unique="UNIQUE_KEY" >
+				<column name="CampaignId" />
+			</index>
+			<index name="pk_CampaignId_001" unique="UNIQUE_KEY" >
+				<column name="CampaignId" />
+			</index>
+			<index name="pk_CampaignId_002" unique="UNIQUE_KEY" >
+				<column name="CampaignId" />
+			</index>
+		</table>
+		<table name="MedicalHistory" prior="Entity" >
+			<column name="CustSSN" type="TEXT" jt="-1" mandatory="y" />
+			<column name="Condition" prior="condition" type="TEXT" jt="-1" />
+			<column name="DiagnosisDate" prior="Diagnosis" type="NUMERIC" jt="2" />
+			<column name="TreatmentStatus" type="TEXT" jt="-1" />
+			<column name="provider_ID" type="INT" jt="4" mandatory="y" />
+			<index name="pk" unique="PRIMARY_KEY" >
+				<column name="CustSSN" />
+				<column name="provider_ID" />
+			</index>
+			<fk name="hasHistory" to_schema="insurance_company" to_table="HealthInfo" >
+				<fk_column name="CustSSN" pk="CustSSN" />
+			</fk>
+			<fk name="PrevInsured" to_schema="insurance_company" to_table="Company" >
+				<fk_column name="provider_ID" pk="CompanyCode" />
+			</fk>
+		</table>
+		<table name="OfferedPolicies" prior="Entity" >
+			<column name="PolicyType" type="TEXT" jt="-1" />
+			<column name="EffectiveDate" type="NUMERIC" jt="2" />
+			<column name="ExpiredDate" type="NUMERIC" jt="2" />
+			<column name="Premium" type="INT" jt="4" />
+			<column name="Deductible" type="INT" jt="4" />
+			<column name="PolicyLimit" type="INT" jt="4" />
+			<column name="Region" type="TEXT" jt="-1" />
+			<column name="DependentsAllowed" type="NUMERIC" jt="2" />
+			<column name="PolicyNum" type="INT" jt="4" mandatory="y" />
+			<index name="pk_OfferedPolicies" unique="PRIMARY_KEY" >
+				<column name="PolicyNum" />
+			</index>
+		</table>
+		<table name="OfferedPoliciesHealth" prior="OfferedPoliciesVehicle_0" >
+			<column name="CompanyCode" type="INT" jt="4" mandatory="y" />
+			<column name="AgeGroup" type="TEXT" jt="-1" />
+			<column name="Smoker" type="NUMERIC" jt="2" />
+			<column name="PolicyNum" type="INT" jt="4" mandatory="y" />
+			<index name="pk_0" unique="PRIMARY_KEY" >
+				<column name="CompanyCode" />
+				<column name="PolicyNum" />
+			</index>
+			<fk name="fk_offeredpoliciesvehicle_0" to_schema="insurance_company" to_table="Company" >
+				<fk_column name="CompanyCode" pk="CompanyCode" />
+			</fk>
+			<fk name="isOffered" to_schema="insurance_company" to_table="OfferedPolicies" >
+				<fk_column name="PolicyNum" pk="PolicyNum" />
+			</fk>
+		</table>
+		<table name="OfferedPoliciesVehicle" prior="OfferedPolicies" >
+			<column name="CompanyCode" type="INT" jt="4" mandatory="y" />
+			<column name="Vehicles_Considered" type="INT" jt="4" />
+			<column name="Age_Group" type="TEXT" jt="-1" />
+			<column name="CarsAllowed" type="NUMERIC" jt="2" />
+			<column name="MotorcyclesAllowed" type="NUMERIC" jt="2" />
+			<column name="TrucksAllowed" type="NUMERIC" jt="2" />
+			<column name="Lessthan4WheelsAllowed" type="NUMERIC" jt="2" />
+			<column name="Morethan4WheelsAllowed" type="NUMERIC" jt="2" />
+			<column name="PolicyNum" type="INT" jt="4" mandatory="y" />
+			<index name="pk" unique="PRIMARY_KEY" >
+				<column name="CompanyCode" />
+				<column name="PolicyNum" />
+			</index>
+			<fk name="fk_offeredpoliciesvehicle" to_schema="insurance_company" to_table="Company" >
+				<fk_column name="CompanyCode" pk="CompanyCode" />
+			</fk>
+			<fk name="isOffered" to_schema="insurance_company" to_table="OfferedPolicies" >
+				<fk_column name="PolicyNum" pk="PolicyNum" />
+			</fk>
+		</table>
+		<table name="Policy" prior="Entity" >
+			<column name="Region" type="TEXT" jt="-1" />
+			<column name="PurchaseDate" type="NUMERIC" jt="2" />
+			<column name="EffectiveDate" type="NUMERIC" jt="2" />
+			<column name="ExpiredDate" type="NUMERIC" jt="2" />
+			<column name="Deductable" type="INT" jt="4" />
+			<column name="Premium" type="INT" jt="4" />
+			<column name="PolicyLimit" type="INT" jt="4" />
+			<column name="PolicyType" type="TEXT" jt="-1" />
+			<column name="PolicyNum" type="INT" jt="4" mandatory="y" />
+			<index name="pk_Policy" unique="PRIMARY_KEY" >
+				<column name="PolicyNum" />
+			</index>
+		</table>
+		<table name="Policy_Company_MarketingEmail" prior="MarketingEmail" >
+			<column name="CompanyCode" type="INT" jt="4" mandatory="y" />
+			<column name="PoliciesAdvertised" type="TEXT" jt="-1" />
+			<column name="CampaignId" type="INT" jt="4" mandatory="y" />
+			<index name="pk_Policy_Company_MarketingEmail" unique="PRIMARY_KEY" >
+				<column name="CampaignId" />
+				<column name="CompanyCode" />
+			</index>
+			<index name="unq_CampaignId" unique="UNIQUE_INDEX" >
+				<column name="CampaignId" />
+			</index>
+			<fk name="hasEmailMarketing" to_schema="insurance_company" to_table="Company" >
+				<fk_column name="CompanyCode" pk="CompanyCode" />
+			</fk>
+			<fk name="isCampaign" to_schema="insurance_company" to_table="Marketing" >
+				<fk_column name="CampaignId" pk="CampaignId" />
+			</fk>
+		</table>
+		<table name="PotentialCustomer" prior="Entity" >
+			<column name="CampaignId" type="INT" jt="4" mandatory="y" />
+			<column name="PotentialFirstName" type="TEXT" jt="-1" />
+			<column name="PotentialLastName" type="TEXT" jt="-1" />
+			<column name="PotentialMiddleInitial" type="TEXT" jt="-1" />
+			<column name="PotentialAddress1" type="TEXT" jt="-1" />
+			<column name="PotentialAddress2" type="TEXT" jt="-1" />
+			<column name="PotentialCity" type="TEXT" jt="-1" />
+			<column name="PotentialState" type="TEXT" jt="-1" />
+			<column name="PotentialZip" type="TEXT" jt="-1" />
+			<column name="PotentialPhoneNum" type="INT" jt="4" />
+			<column name="PotentialEmail" type="TEXT" jt="-1" />
+			<index name="pk" unique="PRIMARY_KEY" >
+				<column name="CampaignId" />
+			</index>
+			<fk name="belongsToTVMarketing" to_schema="insurance_company" to_table="CompanyMarketingTelevision" >
+				<fk_column name="CampaignId" pk="campaign_ID" />
+			</fk>
+			<fk name="belongsToEmailMarketing" to_schema="insurance_company" to_table="Policy_Company_MarketingEmail" >
+				<fk_column name="CampaignId" pk="CampaignId" />
+			</fk>
+		</table>
+		<table name="VehicleClaim" prior="Entity" >
+			<column name="CustSSN" type="TEXT" jt="-1" mandatory="y" />
+			<column name="Vehicle_ID" type="INT" jt="4" mandatory="y" />
+			<column name="PolicyNum" type="INT" jt="4" mandatory="y" />
+			<column name="Injury" type="NUMERIC" jt="2" />
+			<column name="NumCarsInvolved" type="INT" jt="4" />
+			<column name="IncidientType" type="TEXT" jt="-1" />
+			<column name="Area_Affected" type="TEXT" jt="-1" />
+			<index name="idx_VehicleClaim" unique="NORMAL" >
+				<column name="CustSSN" />
+				<column name="Vehicle_ID" />
+				<column name="PolicyNum" />
+			</index>
+			<index name="pk" unique="PRIMARY_KEY" >
+				<column name="CustSSN" />
+				<column name="Vehicle_ID" />
+				<column name="PolicyNum" />
+			</index>
+			<fk name="madeClaim" to_schema="insurance_company" to_table="VehiclePolicy" >
+				<fk_column name="CustSSN" pk="CustSSN" />
+				<fk_column name="Vehicle_ID" pk="Vehicle_ID" />
+				<fk_column name="PolicyNum" pk="PolicyNumber" />
+			</fk>
+			<fk name="hasClaimed" to_schema="insurance_company" to_table="Claims" >
+				<fk_column name="CustSSN" pk="CustSSN" />
+				<fk_column name="PolicyNum" pk="PolicyNum" />
+			</fk>
+		</table>
+		<table name="VehicleInfo" prior="Vehicle" >
+			<column name="VehicleCompany" prior="CarMake" type="TEXT" jt="-1" />
+			<column name="VehiclePrice" type="INT" jt="4" />
+			<column name="VehicleCategory" type="TEXT" jt="-1" />
+			<column name="VehicleYear" prior="VehicleAge" type="INT" jt="4" />
+			<column name="PastNumClaims" type="INT" jt="4" />
+			<column name="VehicleModel" type="TEXT" jt="-1" />
+			<column name="YearsExperience" type="INT" jt="4" />
+			<column name="NumTickets" type="INT" jt="4" />
+			<column name="NumPastAccidents" type="INT" jt="4" />
+			<column name="VehicleDamageRating" type="INT" jt="4" />
+			<column name="CustSSN" prior="SSN" type="TEXT" jt="-1" mandatory="y" />
+			<column name="VehicleID" type="INT" jt="4" mandatory="y" />
+			<index name="pk_VehicleInfo" unique="PRIMARY_KEY" >
+				<column name="VehicleID" />
+				<column name="CustSSN" />
+			</index>
+			<index name="unq_VehicleID" unique="UNIQUE_INDEX" >
+				<column name="CustSSN" />
+				<column name="VehicleID" />
+			</index>
+			<index name="unq_VehicleID_001" unique="UNIQUE_INDEX" >
+				<column name="VehicleID" />
+			</index>
+			<index name="unq_CustSSN" unique="UNIQUE_INDEX" >
+				<column name="CustSSN" />
+			</index>
+			<index name="unq_CustSSN_001" unique="UNIQUE_INDEX" >
+				<column name="CustSSN" />
+			</index>
+			<fk name="hasVehicle" to_schema="insurance_company" to_table="Customer" >
+				<fk_column name="CustSSN" pk="SSN" />
+			</fk>
+		</table>
+		<table name="VehiclePolicy" prior="Entity" >
+			<column name="CustSSN" type="TEXT" jt="-1" mandatory="y" />
+			<column name="Vehicle_ID" type="INT" jt="4" mandatory="y" />
+			<column name="PolicyNumber" type="INT" jt="4" mandatory="y" />
+			<column name="Agent_Sold" type="INT" jt="4" mandatory="y" />
+			<index name="pk_VehiclePolicy" unique="PRIMARY_KEY" >
+				<column name="PolicyNumber" />
+				<column name="CustSSN" />
+				<column name="Vehicle_ID" />
+				<column name="Agent_Sold" />
+			</index>
+			<index name="unq_PolicyNumber" unique="UNIQUE_INDEX" >
+				<column name="CustSSN" />
+				<column name="Vehicle_ID" />
+				<column name="PolicyNumber" />
+			</index>
+			<fk name="hasPolicy" to_schema="insurance_company" to_table="VehicleInfo" >
+				<fk_column name="CustSSN" pk="CustSSN" />
+				<fk_column name="Vehicle_ID" pk="VehicleID" />
+			</fk>
+			<fk name="SoldPolicy" to_schema="insurance_company" to_table="Agent" >
+				<fk_column name="Agent_Sold" pk="AgentID" />
+			</fk>
+			<fk name="isPolicy" to_schema="insurance_company" to_table="Policy" >
+				<fk_column name="PolicyNumber" pk="PolicyNum" />
+			</fk>
+		</table>
+		<table name="VehicleTrends" prior="CarTrends" >
+			<column name="VehicleCrimeIncrease" prior="CarCrimeIncrease" type="NUMERIC" jt="2" />
+			<column name="VehicleCrimeDecrease" prior="CarCrimeDecrease" type="NUMERIC" jt="2" />
+			<column name="PoorClimate" type="NUMERIC" jt="2" />
+			<column name="IncreaseRateofAccident" type="NUMERIC" jt="2" />
+			<column name="DecreaseRateofAccident" type="NUMERIC" jt="2" />
+			<column name="PoorEconConditions" type="NUMERIC" jt="2" />
+			<column name="GoodEconConditions" type="NUMERIC" jt="2" />
+			<column name="State" type="NUMERIC" jt="2" />
+		</table>
+	</schema>
+	<layout name="Default Layout" id="Layout-51" confirmed="y" show_relation="columns" >
+		<entity schema="insurance_company" name="Agent" color="C1D8EE" x="1360" y="357" />
+		<entity schema="insurance_company" name="Claims" color="C1D8EE" x="1224" y="901" />
+		<entity schema="insurance_company" name="Company" color="C1D8EE" x="833" y="357" />
+		<entity schema="insurance_company" name="CompanyMarketingTelevision" color="C1D8EE" x="612" y="85" />
+		<entity schema="insurance_company" name="Customer" color="C1D8EE" x="153" y="782" />
+		<entity schema="insurance_company" name="CustomerAcct" color="C1D8EE" x="391" y="1037" />
+		<entity schema="insurance_company" name="CustomerAddress" color="C1D8EE" x="323" y="1241" />
+		<entity schema="insurance_company" name="CustomerBilling" color="C1D8EE" x="527" y="1275" />
+		<entity schema="insurance_company" name="CustomerRelation" color="C1D8EE" x="170" y="1156" />
+		<entity schema="insurance_company" name="DepndentAcct" color="C1D8EE" x="119" y="1360" />
+		<entity schema="insurance_company" name="FeedBack" color="C1D8EE" x="391" y="51" />
+		<entity schema="insurance_company" name="HealthClaim" color="C1D8EE" x="935" y="1190" />
+		<entity schema="insurance_company" name="HealthInfo" color="C1D8EE" x="391" y="765" />
+		<entity schema="insurance_company" name="HealthPolicy" color="C1D8EE" x="1411" y="629" />
+		<entity schema="insurance_company" name="HealthTrends" color="C1D8EE" x="51" y="255" />
+		<entity schema="insurance_company" name="Invoice" color="C1D8EE" x="323" y="1462" />
+		<entity schema="insurance_company" name="InvoiceDetail" color="C1D8EE" x="544" y="1564" />
+		<entity schema="insurance_company" name="Marketing" color="C1D8EE" x="1139" y="68" />
+		<entity schema="insurance_company" name="MedicalHistory" color="C1D8EE" x="51" y="578" />
+		<entity schema="insurance_company" name="OfferedPolicies" color="C1D8EE" x="1309" y="102" />
+		<entity schema="insurance_company" name="OfferedPoliciesHealth" color="3986C1" x="1105" y="391" />
+		<entity schema="insurance_company" name="OfferedPoliciesVehicle" color="C1D8EE" x="578" y="408" />
+		<entity schema="insurance_company" name="Policy" color="C1D8EE" x="1207" y="680" />
+		<entity schema="insurance_company" name="Policy_Company_MarketingEmail" color="C1D8EE" x="867" y="102" />
+		<entity schema="insurance_company" name="PotentialCustomer" color="C1D8EE" x="272" y="493" />
+		<entity schema="insurance_company" name="VehicleClaim" color="C1D8EE" x="765" y="1156" />
+		<entity schema="insurance_company" name="VehicleInfo" color="C1D8EE" x="561" y="765" />
+		<entity schema="insurance_company" name="VehiclePolicy" color="C1D8EE" x="935" y="782" />
+		<entity schema="insurance_company" name="VehicleTrends" color="C1D8EE" x="289" y="238" />
+	</layout>
+</project>

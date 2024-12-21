@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Available Policies</title>
+</head>
+<body>
+    <h1>Available Insurance Policies</h1>
+    <table border="1">
+        <thead>
+            <tr>
+                <th>Policy Type</th>
+                <th>Effective Date</th>
+                <th>Expire Date</th>
+                <th>Policy Limit</th>
+                <th>Region</th>
+                <th>Dependents Allowed</th>
+                <th>Policy Number</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for policy in policies %}
+            <tr>
+                <td>{{ policy[0] }}</td>
+                <td>{{ policy[1] }}</td>
+                <td>{{ policy[2] }}</td>
+                <td>{{ policy[3] }}</td>
+                <td>{{ policy[4] }}</td>
+                <td>{{ policy[5] }}</td>
+                <td>{{ policy[6] }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</body>
+</html>

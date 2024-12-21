@@ -90,10 +90,25 @@ def login():
         account = cursor.fetchone()
 
         if account:
-            return "Login successful!"  # Redirect to a dashboard or account page in the future
+            return redirect(url_for('policies'))
         else:
             return render_template('login.html', error="Invalid credentials. Please try again or register.")
     return render_template('login.html')
 
+@app.route('/policies')
+def policies():
+    """Render the policies page with data from CompanyPolicies table."""
+    db = get_db()
+    cursor = db.cursor()
+
+    # Query policies excluding Premium and Deductible
+    query = """
+        SELECT PolicyType, EffectiveDate, ExpiredDate, PolicyLimit, Region, DependentsAllowed, PolicyNum
+        FROM ComapnyPolicies
+    """
+    cursor.execute(query)
+    policies = cursor.fetchall()
+    # Pass the policies to the template
+    return render_template('policy.html', policies=policies)
 if __name__ == '__main__':
     app.run(debug=True)
