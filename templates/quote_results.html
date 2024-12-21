@@ -3,13 +3,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Quote Result</title>
+    <title>Quote Details</title>
 </head>
 <body>
     <h1>Quote Details</h1>
-    <p><strong>Policy Number:</strong> {{ policy_num }}</p>
     <p><strong>Policy Type:</strong> {{ policy_type }}</p>
+    <p><strong>Policy Number:</strong> {{ policy_num }}</p>
     <p><strong>Premium:</strong> {{ premium }}</p>
     <p><strong>Deductible:</strong> {{ deductible }}</p>
+    <form action="/buy_policy/{{ policy_num }}" method="GET">
+        <button type="submit">Buy Policy</button>
+    </form>
 </body>
 </html>

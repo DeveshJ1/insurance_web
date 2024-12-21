@@ -1,0 +1,28 @@
+<!-- invoices.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Invoices</title>
+</head>
+<body>
+    <h1>Your Invoices</h1>
+    <table border="1">
+        <tr>
+            <th>Invoice ID</th>
+            <th>CustomerID</th>
+            <th>Status</th>
+            <th>CompanyCode</th>
+        </tr>
+        {% for invoice in invoices %}
+        <tr>
+            <td>{{ invoice[0] }}</td>
+            <td>{{ invoice[1] }}</td>
+            <td>{{ invoice[2] }}</td>
+            <td>{{ invoice[3] }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+</body>
+</html>

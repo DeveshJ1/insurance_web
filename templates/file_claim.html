@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>File a Claim</title>
+</head>
+<body>
+    <h1>Your Policies</h1>
+    <h2>Health Policies</h2>
+    <table border="1">
+        <tr>
+            <th>CustomerID</th>
+            <th>PolicyID</th>
+            <th>AgentSoldID</th>
+        </tr>
+        {% for policy in health_policies %}
+        <tr>
+            <td>{{ policy[0] }}</td>
+            <td>{{ policy[1] }}</td>
+            <td>{{ policy[2] }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+
+    <h2>Vehicle Policies</h2>
+    <table border="1">
+        <tr>
+            <th>CustomerID</th>
+            <th>VehicleID</th>
+            <th>PolicyID</th>
+            <th>AgentSoldID</th>
+        </tr>
+        {% for policy in vehicle_policies %}
+        <tr>
+            <td>{{ policy[0] }}</td>
+            <td>{{ policy[1] }}</td>
+            <td>{{ policy[2] }}</td>
+            <td>{{ policy[3] }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+</body>
+</html>

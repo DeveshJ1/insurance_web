@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Policy Details</title>
+</head>
+<body>
+    <h1>Policy Details</h1>
+    <p><strong>Policy Type:</strong> {{ policy[0] }}</p>
+    <p><strong>Effective Date:</strong> {{ policy[1] }}</p>
+    <p><strong>Expire Date:</strong> {{ policy[2] }}</p>
+    <p><strong>Premium:</strong> {{ policy[3] }}</p>
+    <p><strong>Deductible:</strong> {{ policy[4] }}</p>
+    <p><strong>Policy Limit:</strong> {{ policy[5] }}</p>
+    <p><strong>Region:</strong> {{ policy[6] }}</p>
+    <p><strong>Dependents Allowed:</strong> {{ policy[7] }}</p>
+    <p><strong>Policy Number:</strong> {{ policy[8] }}</p>
+    <form action="/confirm_purchase/{{ policy[8] }}" method="POST">
+        <button type="submit">Confirm Purchase</button>
+    </form>
+</body>
+</html>

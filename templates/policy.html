@@ -4,8 +4,25 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Available Policies</title>
+    <style>
+        .top-right-buttons {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+        }
+    </style>
 </head>
 <body>
+    <div class="top-right-buttons">
+        <form action="/check_invoices" method="GET" style="display:inline;">
+            <input type="hidden" name="customer_id" value="{{ customer_id }}">
+            <button type="submit">Check Invoices</button>
+        </form>
+        <form action="/file_claim" method="GET" style="display:inline;">
+            <input type="hidden" name="customer_id" value="{{ customer_id }}">
+            <button type="submit">File a Claim</button>
+        </form>
+    </div>
     <h1>Available Insurance Policies</h1>
     <table border="1">
         <thead>
